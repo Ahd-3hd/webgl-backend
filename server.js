@@ -4,7 +4,6 @@ const app = express();
 const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
-const path = require("path");
 
 const rooms = {};
 
@@ -35,10 +34,8 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(express.static(path.join(__dirname, "client/build")));
-
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+app.get("/", (req, res) => {
+  res.send("server is working");
 });
 
 server.listen(process.env.PORT || 3000, () =>
